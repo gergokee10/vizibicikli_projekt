@@ -1,0 +1,48 @@
+/* Sima görgetés a menü horgonyaihoz */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Kártya hover animáció */
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Gomb hover/active animáció */
+.anim-btn {
+    transition: all 0.2s ease-in-out;
+}
+
+.anim-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.anim-btn:active {
+    transform: scale(0.95);
+    background-color: #004085;
+}
+
+/* Áttűnés (Fade-in) animáció kulcskeretek */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-section {
+    animation: fadeIn 1.5s ease forwards;
+}
+
+.carousel-item img{
+    height: 600px;
+    object-fit: cover;
+}
+
+body{
+    background-color: lightblue;
+}
