@@ -1,196 +1,267 @@
-// Az oldal betöltődésekor lefutó függvény (11. évfolyamos tananyag)
-window.onload = function() {
-    var formContainer = document.getElementById('form-container');
-    var resultContainer = document.getElementById('result-container');
+window.onload = function () {
 
-    if (formContainer) {
-        generateForm(formContainer);
+    var form = document.getElementById("form-container");
+    var eredmeny = document.getElementById("result-container");
+
+    if (form) {
+        urlapLetrehozasa(form);
     }
-    if (resultContainer) {
-        displayResults(resultContainer);
+
+    if (eredmeny) {
+        eredmenyMegjelenitese(eredmeny);
     }
 };
 
-// Űrlap dinamikus létrehozása DOM segítségével
-function generateForm(container) {
-    // 1. Töltésjelző törlése a DOM-ból
-    var loader = document.getElementById('loading');
-    if (loader) {
-        loader.remove();
+
+function urlapLetrehozasa(hely) {
+
+    var toltes = document.getElementById("loading");
+
+    if (toltes) {
+        toltes.remove();
     }
 
-    // 2. Form elem létrehozása
-    var form = document.createElement('form');
-    form.id = 'foglalasForm';
-    form.className = 'card p-4 shadow-sm mx-auto';
-    form.style.maxWidth = '600px';
+    var form = document.createElement("form");
 
-    var title = document.createElement('h3');
-    title.innerText = 'Eszköz Foglalási Űrlap';
-    title.className = 'mb-4 text-center text-primary';
-    form.appendChild(title);
+    form.id = "foglalasForm";
+    form.className = "card p-4 shadow-sm mx-auto";
+    form.style.maxWidth = "600px";
 
-    // 1. MEZŐ: Név (text, minimum 3 karakter)
-    form.appendChild(createInput('Nev', 'Teljes Név', 'text', true, 'minlength', '3'));
+    var cim = document.createElement("h3");
 
-    // 2. MEZŐ: Email (email)
-    form.appendChild(createInput('Email', 'E-mail cím', 'email', true));
+    cim.innerText = "Eszköz Foglalási Űrlap";
+    cim.className = "mb-4 text-center text-primary";
 
-    // 3. MEZŐ: Telefonszám (tel, minimum 9 karakter)
-    form.appendChild(createInput('Telefon', 'Telefonszám', 'tel', true, 'minlength', '9'));
+    form.appendChild(cim);
 
-    // 4. MEZŐ: Dátum (date, minimum a mai nap)
-    var today = new Date().toISOString().split('T')[0];
-    form.appendChild(createInput('Datum', 'Bérlés napja', 'date', true, 'min', today));
+    form.appendChild(
+        inputLetrehozasa("nev", "Teljes név", "text", 3)
+    );
 
-    // 5. MEZŐ: Eszköz választó (Select)
-    var selectDiv = document.createElement('div');
-    selectDiv.className = 'mb-3';
-    
-    var selectLabel = document.createElement('label');
-    selectLabel.className = 'form-label fw-bold';
-    selectLabel.innerText = 'Választott eszköz';
+    form.appendChild(
+        inputLetrehozasa("email", "E-mail cím", "email")
+    );
 
-    var select = document.createElement('select');
-    select.id = 'Eszkoz';
-    select.className = 'form-select';
-    select.required = true;
+    form.appendChild(
+        inputLetrehozasa("telefon", "Telefonszám", "tel", 9)
+    );
 
-    // A kért opciók tömbje
-    var opciok = [
-        '-- Kérjük válasszon eszközt --',
-        '2 személyes vízibicikli',
-        '4 személyes vízibicikli',
-        '1 személyes kajak',
-        '2 személyes kajak',
-        '3 személyes kajak',
-        'SUP'
+    var maiNap = new Date().toISOString().split("T")[0];
+
+    var datum = inputLetrehozasa(
+        "datum",
+        "Bérlés napja",
+        "date"
+    );
+
+    datum.querySelector("input").setAttribute("min", maiNap);
+
+    form.appendChild(datum);
+
+    var eszkozDiv = document.createElement("div");
+    eszkozDiv.className = "mb-3";
+
+    var eszkozLabel = document.createElement("label");
+    eszkozLabel.innerText = "Választott eszköz";
+    eszkozLabel.className = "form-label fw-bold";
+
+    var eszkoz = document.createElement("select");
+    eszkoz.id = "eszkoz";
+    eszkoz.className = "form-select";
+    eszkoz.required = true;
+
+    var eszkozok = [
+        "-- Kérjük válasszon eszközt --",
+        "2 személyes vízibicikli",
+        "4 személyes vízibicikli",
+        "1 személyes kajak",
+        "2 személyes kajak",
+        "3 személyes kajak",
+        "SUP"
     ];
 
-    // Hagyományos for ciklus az opciók feltöltésére
-    for (var i = 0; i < opciok.length; i++) {
-        var opt = document.createElement('option');
-        if (i === 0) {
-            opt.value = ''; // Az első elem üres értékű
+    for (var i = 0; i < eszkozok.length; i++) {
+
+        var opcio = document.createElement("option");
+
+        opcio.innerText = eszkozok[i];
+
+        if (i == 0) {
+            opcio.value = "";
         } else {
-            opt.value = opciok[i];
+            opcio.value = eszkozok[i];
         }
-        opt.innerText = opciok[i];
-        select.appendChild(opt);
+
+        eszkoz.appendChild(opcio);
     }
 
-    selectDiv.appendChild(selectLabel);
-    selectDiv.appendChild(select);
-    form.appendChild(selectDiv);
+    eszkozDiv.appendChild(eszkozLabel);
+    eszkozDiv.appendChild(eszkoz);
 
-    // 6. MEZŐ: Időtartam (number, min 1, max 8 óra)
-    var idotartamDiv = createInput('Idotartam', 'Bérlési idő (óra)', 'number', true, 'min', '1');
-    var idotartamInput = idotartamDiv.querySelector('input');
-    idotartamInput.setAttribute('max', '8');
-    idotartamInput.value = '1';
-    form.appendChild(idotartamDiv);
+    form.appendChild(eszkozDiv);
 
-    // 7. MEZŐ: Megjegyzés (textarea, min 10 karakter)
-    var textareaDiv = document.createElement('div');
-    textareaDiv.className = 'mb-3';
-    textareaDiv.innerHTML = '<label for="Megjegyzes" class="form-label fw-bold">Megjegyzés (min. 10 karakter)</label>' +
-                            '<textarea id="Megjegyzes" class="form-control" rows="3" minlength="10" maxlength="200" placeholder="Pl.: Gyerekmentőmellény kell..." required></textarea>';
-    form.appendChild(textareaDiv);
+    var ido = inputLetrehozasa(
+        "ido",
+        "Bérlési idő (óra)",
+        "number"
+    );
 
-    // Beküldő gomb
-    var submitBtn = document.createElement('button');
-    submitBtn.type = 'submit';
-    submitBtn.className = 'btn btn-primary w-100 mt-3';
-    submitBtn.innerText = 'Foglalás Elküldése';
-    form.appendChild(submitBtn);
+    var idoInput = ido.querySelector("input");
 
-    container.appendChild(form);
+    idoInput.min = 1;
+    idoInput.max = 8;
+    idoInput.value = 1;
 
-    // Eseménykezelő a beküldéshez
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Ne töltődjön újra az oldal
+    form.appendChild(ido);
 
-        // Értékek kiolvasása a mezőkből
-        var nev = document.getElementById('Nev').value;
-        var email = document.getElementById('Email').value;
-        var telefon = document.getElementById('Telefon').value;
-        var datum = document.getElementById('Datum').value;
-        var eszkoz = document.getElementById('Eszkoz').value;
-        var idotartam = document.getElementById('Idotartam').value;
-        var megjegyzes = document.getElementById('Megjegyzes').value;
+    var megjegyzesDiv = document.createElement("div");
+    megjegyzesDiv.className = "mb-3";
 
-        // Külön JavaScript-es ellenőrzés (Validáció)
+    var megjegyzesLabel = document.createElement("label");
+
+    megjegyzesLabel.innerText =
+        "Megjegyzés (minimum 10 karakter)";
+
+    megjegyzesLabel.className = "form-label fw-bold";
+
+    var megjegyzes = document.createElement("textarea");
+
+    megjegyzes.id = "megjegyzes";
+    megjegyzes.className = "form-control";
+    megjegyzes.rows = 3;
+    megjegyzes.minLength = 10;
+    megjegyzes.maxLength = 200;
+    megjegyzes.placeholder =
+        "Pl.: Gyerekmentőmellény kell...";
+    megjegyzes.required = true;
+
+    megjegyzesDiv.appendChild(megjegyzesLabel);
+    megjegyzesDiv.appendChild(megjegyzes);
+
+    form.appendChild(megjegyzesDiv);
+
+    var gomb = document.createElement("button");
+
+    gomb.type = "submit";
+    gomb.className = "btn btn-primary w-100 mt-3";
+    gomb.innerText = "Foglalás elküldése";
+
+    form.appendChild(gomb);
+
+    hely.appendChild(form);
+
+    form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        var nev = document.getElementById("nev").value;
+        var email = document.getElementById("email").value;
+        var telefon = document.getElementById("telefon").value;
+        var datum = document.getElementById("datum").value;
+        var eszkoz = document.getElementById("eszkoz").value;
+        var ido = document.getElementById("ido").value;
+        var megjegyzes = document.getElementById("megjegyzes").value;
+
         if (megjegyzes.length < 10) {
-            alert('A megjegyzésnek legalább 10 karakter hosszúnak kell lennie!');
+
+            alert(
+                "A megjegyzésnek legalább 10 karakter hosszúnak kell lennie!"
+            );
+
             return;
         }
 
-        // ADATOK MENTÉSE EGYESÉVEL SIMA SZÖVEGKÉNT (JSON NÉLKÜL!)
-        localStorage.setItem('foglalas_nev', nev);
-        localStorage.setItem('foglalas_email', email);
-        localStorage.setItem('foglalas_telefon', telefon);
-        localStorage.setItem('foglalas_datum', datum);
-        localStorage.setItem('foglalas_eszkoz', eszkoz);
-        localStorage.setItem('foglalas_idotartam', idotartam + ' óra');
-        localStorage.setItem('foglalas_megjegyzes', megjegyzes);
+        localStorage.setItem("nev", nev);
+        localStorage.setItem("email", email);
+        localStorage.setItem("telefon", telefon);
+        localStorage.setItem("datum", datum);
+        localStorage.setItem("eszkoz", eszkoz);
+        localStorage.setItem("ido", ido + " óra");
+        localStorage.setItem("megjegyzes", megjegyzes);
 
-        // Átirányítás a másik oldalra
-        window.location.href = 'eredmeny.html';
+        window.location.href = "eredmeny.html";
     });
 }
 
-// Segédfüggvény űrlapelemek gyors létrehozásához
-function createInput(id, labelText, type, isRequired, attrName, attrValue) {
-    var div = document.createElement('div');
-    div.className = 'mb-3';
 
-    var label = document.createElement('label');
-    label.setAttribute('for', id);
-    label.className = 'form-label fw-bold';
-    label.innerText = labelText;
+function inputLetrehozasa(id, szoveg, tipus, minimum) {
 
-    var input = document.createElement('input');
-    input.type = type;
+    var div = document.createElement("div");
+    div.className = "mb-3";
+
+    var label = document.createElement("label");
+
+    label.innerText = szoveg;
+    label.className = "form-label fw-bold";
+    label.setAttribute("for", id);
+
+    var input = document.createElement("input");
+
     input.id = id;
-    input.className = 'form-control';
-    input.required = isRequired;
+    input.type = tipus;
+    input.className = "form-control";
+    input.required = true;
 
-    if (attrName && attrValue) {
-        input.setAttribute(attrName, attrValue);
+    if (minimum) {
+        input.minLength = minimum;
     }
 
     div.appendChild(label);
     div.appendChild(input);
+
     return div;
 }
 
-// Eredmények megjelenítése az eredmeny.html oldalon (JSON NÉLKÜL)
-function displayResults(container) {
-    // Értékek kiolvasása egyesével a LocalStorage-ból
-    var nev = localStorage.getItem('foglalas_nev');
+
+function eredmenyMegjelenitese(hely) {
+
+    var nev = localStorage.getItem("nev");
 
     if (!nev) {
-        container.innerHTML = '<p class="text-danger">Még nem történt foglalás!</p>';
+
+        hely.innerHTML =
+            '<p class="text-danger">Még nem történt foglalás!</p>';
+
         return;
     }
 
-    var email = localStorage.getItem('foglalas_email');
-    var telefon = localStorage.getItem('foglalas_telefon');
-    var datum = localStorage.getItem('foglalas_datum');
-    var eszkoz = localStorage.getItem('foglalas_eszkoz');
-    var idotartam = localStorage.getItem('foglalas_idotartam');
-    var megjegyzes = localStorage.getItem('foglalas_megjegyzes');
+    var email = localStorage.getItem("email");
+    var telefon = localStorage.getItem("telefon");
+    var datum = localStorage.getItem("datum");
+    var eszkoz = localStorage.getItem("eszkoz");
+    var ido = localStorage.getItem("ido");
+    var megjegyzes = localStorage.getItem("megjegyzes");
 
-    // Egyszerű HTML szöveg összefűzése
-    var html = '<ul class="list-group list-group-flush">' +
-        '<li class="list-group-item"><strong>Név:</strong> ' + nev + '</li>' +
-        '<li class="list-group-item"><strong>E-mail cím:</strong> ' + email + '</li>' +
-        '<li class="list-group-item"><strong>Telefonszám:</strong> ' + telefon + '</li>' +
-        '<li class="list-group-item"><strong>Bérlés dátuma:</strong> ' + datum + '</li>' +
-        '<li class="list-group-item"><strong>Foglalt eszköz:</strong> ' + eszkoz + '</li>' +
-        '<li class="list-group-item"><strong>Időtartam:</strong> ' + idotartam + '</li>' +
-        '<li class="list-group-item"><strong>Megjegyzés:</strong> ' + megjegyzes + '</li>' +
+    hely.innerHTML =
+        '<ul class="list-group list-group-flush">' +
+
+        '<li class="list-group-item">' +
+        '<strong>Név:</strong> ' + nev +
+        '</li>' +
+
+        '<li class="list-group-item">' +
+        '<strong>E-mail cím:</strong> ' + email +
+        '</li>' +
+
+        '<li class="list-group-item">' +
+        '<strong>Telefonszám:</strong> ' + telefon +
+        '</li>' +
+
+        '<li class="list-group-item">' +
+        '<strong>Bérlés dátuma:</strong> ' + datum +
+        '</li>' +
+
+        '<li class="list-group-item">' +
+        '<strong>Foglalt eszköz:</strong> ' + eszkoz +
+        '</li>' +
+
+        '<li class="list-group-item">' +
+        '<strong>Időtartam:</strong> ' + ido +
+        '</li>' +
+
+        '<li class="list-group-item">' +
+        '<strong>Megjegyzés:</strong> ' + megjegyzes +
+        '</li>' +
+
         '</ul>';
-
-    container.innerHTML = html;
 }

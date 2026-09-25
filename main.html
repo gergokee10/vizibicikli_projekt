@@ -5,179 +5,434 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vizibicikli kölcsönző</title>
-    <!-- Bootstrap 5 CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="kolcsonzo.css">
+
     <script src="kolcsonzo.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Menüsáv -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+
         <div class="container">
-            <a class="navbar-brand" href="#">Vizibicikli kölcsönző</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+            <a class="navbar-brand" href="#">
+                Vizibicikli kölcsönző
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
                 <span class="navbar-toggler-icon"></span>
+
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
+
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#kiemelt">Kiemelt</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#szolgaltatasok">Szolgáltatások</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#velemenyek">Vélemények</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#kapcsolat">Kapcsolat</a></li>
+
                     <li class="nav-item">
-                        <!-- Link az űrlapra -->
-                        <a class="btn btn-primary ms-3 anim-btn" href="urlap.html">Foglalás (Űrlap)</a>
+                        <a class="nav-link" href="#kiemelt">
+                            Kiemelt
+                        </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#szolgaltatasok">
+                            Szolgáltatások
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#velemenyek">
+                            Vélemények
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#kapcsolat">
+                            Kapcsolat
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-3 anim-btn" href="urlap.html">
+                            Foglalás (Űrlap)
+                        </a>
+                    </li>
+
                 </ul>
+
             </div>
+
         </div>
+
     </nav>
 
-    <!-- Carousel -->
+
     <section id="kiemelt" class="fade-in-section">
-        <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
+
+        <div id="portfolioCarousel"
+            class="carousel slide"
+            data-bs-ride="carousel">
+
             <div class="carousel-inner">
+
                 <div class="carousel-item active">
-                    <img src="kepek/vizibicikli_sárga.jpg" class="d-block w-100" alt="Vizibicikli">
+
+                    <img src="kepek/vizibicikli_sárga.jpg"
+                        class="d-block w-100"
+                        alt="Vizibicikli">
+
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+
                         <h5>Vizibicikli</h5>
-                        <p>2-4 személyes, csúszdás és csúszda nélküli.</p>
+
+                        <p>
+                            2-4 személyes, csúszdás és csúszda nélküli.
+                        </p>
+
                     </div>
+
                 </div>
+
+
                 <div class="carousel-item">
-                    <img src="kepek/kajak.webp" class="d-block w-100" alt="Kajak">
+
+                    <img src="kepek/kajak.webp"
+                        class="d-block w-100"
+                        alt="Kajak">
+
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+
                         <h5>Kajak</h5>
-                        <p>1-2-3 személyes.</p>
+
+                        <p>
+                            1-2-3 személyes.
+                        </p>
+
                     </div>
+
                 </div>
+
+
                 <div class="carousel-item">
-                    <img src="kepek/sup.jpg" class="d-block w-100" alt="Állószörf">
+
+                    <img src="kepek/sup.jpg"
+                        class="d-block w-100"
+                        alt="Állószörf">
+
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+
                         <h5>Állószörf</h5>
-                        <p>Újabban elterjedt vizi eszköz.</p>
+
+                        <p>
+                            Újabban elterjedt vízi eszköz.
+                        </p>
+
                     </div>
+
                 </div>
+
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel"
+
+
+            <button class="carousel-control-prev"
+                type="button"
+                data-bs-target="#portfolioCarousel"
                 data-bs-slide="prev">
+
                 <span class="carousel-control-prev-icon"></span>
+
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel"
+
+
+            <button class="carousel-control-next"
+                type="button"
+                data-bs-target="#portfolioCarousel"
                 data-bs-slide="next">
+
                 <span class="carousel-control-next-icon"></span>
+
             </button>
+
         </div>
+
     </section>
 
-    <!-- Szolgáltatások (Flexbox kártyák) -->
-    <section id="szolgaltatasok" class="container mt-5 fade-in-section">
-        <h2 class="text-center mb-4">Szolgáltatásaink</h2>
+
+    <section id="szolgaltatasok"
+        class="container mt-5 fade-in-section">
+
+        <h2 class="text-center mb-4">
+            Szolgáltatásaink
+        </h2>
+
+
         <div class="d-flex flex-wrap justify-content-center gap-4">
+
             <div class="card hover-card" style="width: 18rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title">2 személyes Vizibicikli</h5>
-                    <p class="card-text">Tökéletes kikapcsolódás pároknak. </p>
+
+                    <h5 class="card-title">
+                        2 személyes Vizibicikli
+                    </h5>
+
+                    <p class="card-text">
+                        Tökéletes kikapcsolódás pároknak.
+                    </p>
+
                 </div>
+
             </div>
+
+
             <div class="card hover-card" style="width: 18rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title">Cim</h5>
-                    <p class="card-text">leiras.</p>
+
+                    <h5 class="card-title">
+                        4 személyes Vizibicikli
+                    </h5>
+
+                    <p class="card-text">
+                        Baráti társaságoknak, családoknak ajánljuk.
+                    </p>
+
                 </div>
+
             </div>
+
+
             <div class="card hover-card" style="width: 18rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title">Cim</h5>
-                    <p class="card-text">leiras.</p>
+
+                    <h5 class="card-title">
+                        1 személyes Kajak
+                    </h5>
+
+                    <p class="card-text">
+                        Egyéni kalandozáshoz tökéletes.
+                    </p>
+
                 </div>
+
             </div>
+
+
             <div class="card hover-card" style="width: 18rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title">Cim</h5>
-                    <p class="card-text">leiras.</p>
+
+                    <h5 class="card-title">
+                        2 személyes Kajak
+                    </h5>
+
+                    <p class="card-text">
+                        Kényelmes közös vízitúrákhoz.
+                    </p>
+
                 </div>
+
             </div>
+
+
             <div class="card hover-card" style="width: 18rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title">Cim</h5>
-                    <p class="card-text">leiras.</p>
+
+                    <h5 class="card-title">
+                        3 személyes Kajak
+                    </h5>
+
+                    <p class="card-text">
+                        Ideális családoknak és baráti társaságoknak.
+                    </p>
+
                 </div>
+
             </div>
+
+
             <div class="card hover-card" style="width: 18rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title">Cim</h5>
-                    <p class="card-text">leiras.</p>
+
+                    <h5 class="card-title">
+                        Sup (Állószörf)
+                    </h5>
+
+                    <p class="card-text">
+                        Jó szórakozás, újonnan elterjedt vízi eszköz.
+                    </p>
+
                 </div>
+
             </div>
+
+
             <div class="card hover-card" style="width: 18rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title">Cim</h5>
-                    <p class="card-text">leiras.</p>
+
+                    <h5 class="card-title">
+                        Mentőmellény
+                    </h5>
+
+                    <p class="card-text">
+                        Gyermekeknek ingyen, felnőtteknek 500 Ft/db.
+                    </p>
+
                 </div>
+
             </div>
+
+
             <div class="card hover-card" style="width: 18rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title">Cim</h5>
-                    <p class="card-text">leiras.</p>
+
+                    <h5 class="card-title">
+                        Hűtőtáska
+                    </h5>
+
+                    <p class="card-text">
+                        Extra költség fejében biztosítunk.
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Vélemények -->
-    <section id="velemenyek" class="container mt-5 bg-light p-4 rounded fade-in-section">
-        <h2 class="text-center mb-4">Ügyfeleink mondták</h2>
+
+    <section id="velemenyek"
+        class="container mt-5 p-4 rounded fade-in-section">
+
+        <h2 class="text-center mb-4">
+            Ügyfeleink mondták
+        </h2>
+
+
         <div class="d-flex flex-wrap justify-content-center gap-3">
+
             <div class="card" style="width: 20rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title text-warning">★★★★★</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Kovács János</h6>
-                    <p class="card-text">"Gyors és precíz munka, a weboldalam forgalma megduplázódott!"</p>
+
+                    <h5 class="card-title text-warning">
+                        ★★★★★
+                    </h5>
+
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Kovács János
+                    </h6>
+
+                    <p class="card-text">
+                        "A diákmunkások korrektek, nagyon jó élmény volt a családnak."
+                    </p>
+
                 </div>
+
             </div>
+
+
             <div class="card" style="width: 20rem;">
+
                 <div class="card-body">
-                    <h5 class="card-title text-warning">★★★★☆</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Nagy Éva</h6>
-                    <p class="card-text">"Kreatív design és kiváló kommunikáció a projekt alatt."</p>
+
+                    <h5 class="card-title text-warning">
+                        ★★★★☆
+                    </h5>
+
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Nagy Éva
+                    </h6>
+
+                    <p class="card-text">
+                        "Sok lehetőség, jó környezet, kicsit túlárazott."
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Hol vagyunk elérhetők? -->
-    <section id="kapcsolat" class="container mt-5 mb-5 fade-in-section">
-        <h2 class="text-center mb-4">Itt talál minket</h2>
-        <div class="row align-items-center">
-            <div class="col-md-6 text-center text-md-start">
-                <h4>WebDev Stúdió Központ</h4>
-                <p><strong>Cím:</strong> 1111 Budapest, Web utca 404.</p>
-                <p><strong>Email:</strong> hello@webdevstudio.hu</p>
-                <p><strong>Telefon:</strong> +36 1 234 5678</p>
-            </div>
-            <div class="col-md-6">
-                <!-- Helykitöltő Google Maps helyett egy szürke doboz a reszponzivitás miatt -->
-                <div class="bg-secondary text-white d-flex justify-content-center align-items-center rounded"
-                    style="height: 250px;">
-                    Tel Aviv
+
+    <section id="kapcsolat"
+        class="container mt-5 mb-5 fade-in-section">
+
+        <h2 class="text-center mb-4">
+            Itt talál minket
+        </h2>
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-10 col-lg-8 text-center">
+
+                <div class="kapcsolat-doboz p-5 rounded shadow">
+
+                    <h4>
+                        Kölcsönző kft.
+                    </h4>
+
+                    <p>
+                        <strong>Cím:</strong>
+                        8243 Balatonakali Strand utca 1.
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        legjobb_kolcsonzo@gmail.hu
+                    </p>
+
+                    <p>
+                        <strong>Telefon:</strong>
+                        +36 30 000 0000
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Lábléc -->
+
     <footer class="bg-dark text-white text-center py-3 mt-auto">
+
         <div class="container">
-            <p class="mb-0">&copy; 2024 WebDev Stúdió. Minden jog fenntartva.</p>
-            <small>Készítette: XY (12. évfolyam) | Projektmunka</small>
+
+            <p class="mb-0">
+                &copy; 2026 Kölcsönző kft. Minden jog fenntartva.
+            </p>
+
+            <small>
+                Készítette: Horváth Benedek, Meilinger Gergő
+                (12. évfolyam) | Projektmunka
+            </small>
+
         </div>
+
     </footer>
 
-    <!-- Bootstrap JS -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
